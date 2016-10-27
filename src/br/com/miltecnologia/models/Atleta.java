@@ -34,6 +34,9 @@ public class Atleta {
     }
 
     public Integer getRanking() {
+        if (ranking == null) {
+            ranking = RANKING_MINIMO;
+        }
         return ranking;
     }
 
