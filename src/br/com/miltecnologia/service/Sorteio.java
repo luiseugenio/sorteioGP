@@ -10,6 +10,7 @@ import br.com.miltecnologia.models.Luta;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -37,17 +38,17 @@ public class Sorteio {
     }
 
     private static Atleta getAtletaAzul(List<Atleta> atletas) {
-        int indice = (int) (Math.random() * atletas.size());
+        int indice = new Random().nextInt(atletas.size());
         while (indice == atletas.size()) {
-            indice = (int) (Math.random() * atletas.size() - 1);
+            indice = new Random().nextInt(atletas.size());
         }
         return atletas.get(indice);
     }
 
     private static Atleta getAtletaVermelho(List<Atleta> atletas, Atleta adversario) {
-        int indice = (int) (Math.random() * (atletas.size() - 1));
+        int indice = new Random().nextInt(atletas.size());
         while (indice == atletas.size() || atletas.get(indice).equals(adversario)) {
-            indice = (int) (Math.random() * (atletas.size() - 1));
+            indice = new Random().nextInt(atletas.size());
         }
         return atletas.get(indice);
     }
