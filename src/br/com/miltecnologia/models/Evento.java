@@ -17,7 +17,7 @@ public class Evento {
     private String nome;
     private Date data;
     private String tipo;
-    private Integer quantidadeLutas;
+    private Integer quantidadeDeLutas;
     private List atletas;
     private List lutas;
 
@@ -25,15 +25,15 @@ public class Evento {
         this.nome = nome;
         this.data = data;
         this.tipo = tipo;
-        this.quantidadeLutas = quantidadeLutas;
+        this.quantidadeDeLutas = quantidadeLutas;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public Integer getQuantidadeLutas() {
-        return quantidadeLutas;
+    public Integer getQuantidadeDeLutas() {
+        return quantidadeDeLutas;
     }
 
     public List getAtletas() {
