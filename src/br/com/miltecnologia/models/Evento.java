@@ -28,6 +28,10 @@ public class Evento {
         this.quantidadeLutas = quantidadeLutas;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public Integer getQuantidadeLutas() {
         return quantidadeLutas;
     }
