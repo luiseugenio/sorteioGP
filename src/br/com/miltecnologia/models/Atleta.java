@@ -15,8 +15,8 @@ public class Atleta {
     public static final int RANKING_MEDIO = 50;
     public static final int RANKING_MINIMO = 10;
 
-    private String equipe;
-    private String nome;
+    private final String equipe;
+    private final String nome;
     private Integer ranking;
 
     public Atleta(String nome, String equipe, Integer peso) {
@@ -39,7 +39,7 @@ public class Atleta {
 
     @Override
     public String toString() {
-        return nome + "(" + equipe + ") - " + ranking;
+        return nome + " (" + equipe + ")";
     }
 
     @Override
