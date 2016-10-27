@@ -11,11 +11,11 @@ import br.com.miltecnologia.models.Luta;
 import br.com.miltecnologia.service.Sorteio;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
@@ -31,6 +31,7 @@ public class Aplicacao extends javax.swing.JFrame {
     public Aplicacao() {
         initComponents();
         setLocationRelativeTo(null);
+        adicionarMassaDados();
     }
 
     /**
@@ -58,12 +59,12 @@ public class Aplicacao extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jPanelAtleta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableAtleta = new javax.swing.JTable();
         jButtonProximo2 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jPanelSorteio = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableLuta = new javax.swing.JTable();
         jButtonSortear = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
@@ -73,7 +74,7 @@ public class Aplicacao extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemAtleta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,35 +107,33 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
-                        .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldEvento)
-                            .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
-                                .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 148, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConfiguracaoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonProximo1))
                     .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
                         .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jQtdAtleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jQtdLuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel5))
+                            .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
+                                .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                    .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel3))
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanelConfiguracaoLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jQtdLuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jQtdAtleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -161,7 +160,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addGroup(jPanelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jQtdLuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonProximo1)
@@ -170,23 +169,23 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Configuração", jPanelConfiguracao);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAtleta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Atleta", "Equipe", "Peso"
+                "Atleta", "Equipe"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableAtleta);
 
         jButtonProximo2.setText("Próximo");
         jButtonProximo2.addActionListener(new java.awt.event.ActionListener() {
@@ -203,11 +202,8 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelAtletaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAtletaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanelAtletaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonProximo2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jButtonProximo2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelAtletaLayout.setVerticalGroup(
@@ -215,7 +211,7 @@ public class Aplicacao extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAtletaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonProximo2)
@@ -224,7 +220,7 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Atletas", jPanelAtleta);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLuta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -247,7 +243,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTableLuta);
 
         jButtonSortear.setText("Sortear");
         jButtonSortear.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +256,7 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jLabel8.setText("Data:");
 
-        jLabel10.setText("Lutas:");
+        jLabel10.setText("Lutas Casadas:");
 
         javax.swing.GroupLayout jPanelSorteioLayout = new javax.swing.GroupLayout(jPanelSorteio);
         jPanelSorteio.setLayout(jPanelSorteioLayout);
@@ -272,21 +268,18 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(jSeparator3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSorteioLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanelSorteioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonSortear, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanelSorteioLayout.createSequentialGroup()
-                        .addGroup(jPanelSorteioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanelSorteioLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel10)
-                            .addGroup(jPanelSorteioLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jButtonSortear))
+                    .addGroup(jPanelSorteioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelSorteioLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel10)
+                        .addGroup(jPanelSorteioLayout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabelEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelSorteioLayout.setVerticalGroup(
@@ -304,7 +297,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSortear)
@@ -315,13 +308,13 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jMenu1.setText("Administração");
 
-        jMenuItem1.setText("Ranking");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemAtleta.setText("Atleta");
+        jMenuItemAtleta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemAtletaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jMenuItemAtleta);
 
         jMenuBar1.add(jMenu1);
 
@@ -352,62 +345,61 @@ public class Aplicacao extends javax.swing.JFrame {
 //        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
 //        dtm.setRowCount((Integer) jQtdAtleta.getValue());
 //        jTable1.setModel(dtm);
-        adicionarMassaDados();
+//        adicionarMassaDados();
         jTabbedPane1.setSelectedIndex(1);
         jTabbedPane1.setEnabledAt(0, false);
     }//GEN-LAST:event_jButtonProximo1ActionPerformed
 
     private void adicionarMassaDados() {
+        jTextFieldEvento.setText("Coronel Combate");
+        jData.setDate(Calendar.getInstance().getTime());
+        jQtdAtleta.setValue(8);
+        jQtdLuta.setValue(4);
         Vector<Atleta> v = new Vector();
-        Atleta iamik = new Atleta("Iamik", "Dragon", Atleta.RANKING_MAXIMO);
+        Atleta iamik = new Atleta("Iamik Furtado", "Dragon Kombat", Atleta.RANKING_MAXIMO);
         v.add(iamik);
-        Atleta helio = new Atleta("Helio", "V8", Atleta.RANKING_MAXIMO);
+        Atleta helio = new Atleta("Hélio Rocha", "V8 MMA", Atleta.RANKING_MAXIMO);
         v.add(helio);
-        Atleta fernando = new Atleta("Fernando", "MTB", Atleta.RANKING_MEDIO);
+        Atleta fernando = new Atleta("Fernando Esteves", "MTB", Atleta.RANKING_MEDIO);
         v.add(fernando);
-        Atleta anderson = new Atleta("Anderson", "RKR", Atleta.RANKING_MEDIO);
+        Atleta anderson = new Atleta("Anderson Brasilino", "RKR Team", Atleta.RANKING_MEDIO);
         v.add(anderson);
-        Atleta berg = new Atleta("Berg", "Barra", Atleta.RANKING_MEDIO);
+        Atleta berg = new Atleta("Berg Silva", "Barra Fight", Atleta.RANKING_MEDIO);
         v.add(berg);
-        Atleta gugu = new Atleta("Gugu", "Gladiadores", Atleta.RANKING_MINIMO);
+        Atleta gugu = new Atleta("Gugu Monstro", "Gladiadores Top Fight", Atleta.RANKING_MINIMO);
         v.add(gugu);
-        Atleta neto = new Atleta("Neto", "Black", Atleta.RANKING_MAXIMO);
+        Atleta neto = new Atleta("Neto Santiago", "Black Thai", Atleta.RANKING_MAXIMO);
         v.add(neto);
-        Atleta andersonSilva = new Atleta("Anderson Silva", "Ferreira", Atleta.RANKING_MEDIO);
+        Atleta andersonSilva = new Atleta("Anderson Silva", "Ferreira ASA Team", Atleta.RANKING_MEDIO);
         v.add(andersonSilva);
-        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        if (dtm.getRowCount() > 0) {
-            for (int i = 1; i <= dtm.getRowCount(); i++) {
-                dtm.removeRow(i);
-            }
-        }
+        DefaultTableModel dtm = (DefaultTableModel) jTableAtleta.getModel();
+        dtm.setRowCount(0);
         v.stream().map((a) -> {
             Vector linha = new Vector();
             linha.add(a.getNome());
             linha.add(a.getEquipe());
-            linha.add(a.getRanking());
             return linha;
         }).forEach((linha) -> {
             dtm.addRow(linha);
         });
-        jTable1.setModel(dtm);
-        jTable1.repaint();
+        jTableAtleta.setModel(dtm);
+        jTableAtleta.repaint();
     }
 
     private void jButtonProximo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximo2ActionPerformed
         List<Atleta> atletas = new ArrayList();
-        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) jTableAtleta.getModel();
         Vector<Vector> data = dtm.getDataVector();
         for (int i = 0; i < data.size(); i++) {
             Vector v = data.get(i);
-            Atleta a = new Atleta((String) v.get(0), (String) v.get(1), (Integer) v.get(2));
+            Atleta a = new Atleta((String) v.get(0), (String) v.get(1));
             atletas.add(a);
         }
         evento.setAtletas(atletas);
 
-        DefaultTableModel dtm2 = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel dtm2 = (DefaultTableModel) jTableLuta.getModel();
         dtm.setRowCount(evento.getQuantidadeDeLutas());
-        jTable2.setModel(dtm2);
+        jTableLuta.setModel(dtm2);
         jTabbedPane1.setSelectedIndex(2);
         jTabbedPane1.setEnabledAt(1, false);
     }//GEN-LAST:event_jButtonProximo2ActionPerformed
@@ -420,7 +412,7 @@ public class Aplicacao extends javax.swing.JFrame {
         List atletas = new ArrayList(evento.getAtletas());
         List lutas = Sorteio.sortear(atletas, evento.getQuantidadeDeLutas());
         evento.setLutas(lutas);
-        DefaultTableModel dtm2 = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel dtm2 = (DefaultTableModel) jTableLuta.getModel();
         dtm2.setRowCount(0);
         for (int i = 0; i < evento.getLutas().size(); i++) {
             Luta l = (Luta) evento.getLutas().get(i);
@@ -430,28 +422,25 @@ public class Aplicacao extends javax.swing.JFrame {
             v.add(l.getVermelho());
             dtm2.addRow(v);
         }
-        jTable2.setModel(dtm2);
+        jTableLuta.setModel(dtm2);
         ajustaTable();
     }//GEN-LAST:event_jButtonSortearActionPerformed
 
     private void ajustaTable() {
-        jTable2.getColumnModel().getColumn(1).setMaxWidth(30);
-        DefaultTableCellHeaderRenderer headRendererCenter = new DefaultTableCellHeaderRenderer();
-        headRendererCenter.setHorizontalAlignment(DefaultTableCellHeaderRenderer.CENTER);
-        jTable2.getTableHeader().getColumnModel().getColumn(0).setHeaderRenderer(headRendererCenter);
-        jTable2.getTableHeader().getColumnModel().getColumn(1).setHeaderRenderer(headRendererCenter);
-        jTable2.getTableHeader().getColumnModel().getColumn(2).setHeaderRenderer(headRendererCenter);
+        jTableLuta.getColumnModel().getColumn(1).setMaxWidth(30);
         DefaultTableCellRenderer cellRendererCenter = new DefaultTableCellRenderer();
         cellRendererCenter.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-        jTable2.getColumnModel().getColumn(0).setCellRenderer(cellRendererCenter);
-        jTable2.getColumnModel().getColumn(1).setCellRenderer(cellRendererCenter);
-        jTable2.getColumnModel().getColumn(2).setCellRenderer(cellRendererCenter);
-        jTable2.repaint();
+        jTableLuta.getColumnModel().getColumn(0).setCellRenderer(cellRendererCenter);
+        jTableLuta.getColumnModel().getColumn(1).setCellRenderer(cellRendererCenter);
+        jTableLuta.getColumnModel().getColumn(2).setCellRenderer(cellRendererCenter);
+        jTableLuta.repaint();
     }
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jMenuItemAtletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAtletaActionPerformed
+        AtletaJDialog dialog = new AtletaJDialog(this, true, evento.getAtletas());
+        dialog.setVisible(true);
+        evento.setAtletas(dialog.getAtletas());
+    }//GEN-LAST:event_jMenuItemAtletaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -505,7 +494,7 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelEvento;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemAtleta;
     private javax.swing.JPanel jPanelAtleta;
     private javax.swing.JPanel jPanelConfiguracao;
     private javax.swing.JPanel jPanelSorteio;
@@ -517,8 +506,8 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableAtleta;
+    private javax.swing.JTable jTableLuta;
     private javax.swing.JTextField jTextFieldEvento;
     private javax.swing.JComboBox<String> jTipo;
     // End of variables declaration//GEN-END:variables
