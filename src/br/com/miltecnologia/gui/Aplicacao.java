@@ -13,7 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
@@ -78,6 +80,8 @@ public class Aplicacao extends javax.swing.JFrame {
         jLabel1.setText("Evento:");
 
         jLabel2.setText("Data:");
+
+        jData.setFormats(new SimpleDateFormat("dd/MM/yyyy" ));
 
         jLabel3.setText("Tipo:");
 
@@ -345,11 +349,50 @@ public class Aplicacao extends javax.swing.JFrame {
 
     private void jButtonProximo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximo1ActionPerformed
         evento = new Evento(jTextFieldEvento.getText(), jData.getDate(), jTipo.getSelectedItem().toString(), (Integer) jQtdLuta.getValue());
-        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        dtm.setRowCount((Integer) jQtdAtleta.getValue());
-        jTable1.setModel(dtm);
+//        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+//        dtm.setRowCount((Integer) jQtdAtleta.getValue());
+//        jTable1.setModel(dtm);
+        adicionarMassaDados();
         jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane1.setEnabledAt(0, false);
     }//GEN-LAST:event_jButtonProximo1ActionPerformed
+
+    private void adicionarMassaDados() {
+        Vector<Atleta> v = new Vector();
+        Atleta iamik = new Atleta("Iamik", "Dragon", Atleta.RANKING_MAXIMO);
+        v.add(iamik);
+        Atleta helio = new Atleta("Helio", "V8", Atleta.RANKING_MAXIMO);
+        v.add(helio);
+        Atleta fernando = new Atleta("Fernando", "MTB", Atleta.RANKING_MEDIO);
+        v.add(fernando);
+        Atleta anderson = new Atleta("Anderson", "RKR", Atleta.RANKING_MEDIO);
+        v.add(anderson);
+        Atleta berg = new Atleta("Berg", "Barra", Atleta.RANKING_MEDIO);
+        v.add(berg);
+        Atleta gugu = new Atleta("Gugu", "Gladiadores", Atleta.RANKING_MINIMO);
+        v.add(gugu);
+        Atleta neto = new Atleta("Neto", "Black", Atleta.RANKING_MAXIMO);
+        v.add(neto);
+        Atleta andersonSilva = new Atleta("Anderson Silva", "Ferreira", Atleta.RANKING_MEDIO);
+        v.add(andersonSilva);
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        if (dtm.getRowCount() > 0) {
+            for (int i = 1; i <= dtm.getRowCount(); i++) {
+                dtm.removeRow(i);
+            }
+        }
+        v.stream().map((a) -> {
+            Vector linha = new Vector();
+            linha.add(a.getNome());
+            linha.add(a.getEquipe());
+            linha.add(a.getRanking());
+            return linha;
+        }).forEach((linha) -> {
+            dtm.addRow(linha);
+        });
+        jTable1.setModel(dtm);
+        jTable1.repaint();
+    }
 
     private void jButtonProximo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximo2ActionPerformed
         List<Atleta> atletas = new ArrayList();
@@ -357,23 +400,28 @@ public class Aplicacao extends javax.swing.JFrame {
         Vector<Vector> data = dtm.getDataVector();
         for (int i = 0; i < data.size(); i++) {
             Vector v = data.get(i);
-            Atleta a = new Atleta((String) v.get(0), (String) v.get(1), Integer.parseInt((String) v.get(2)));
+            Atleta a = new Atleta((String) v.get(0), (String) v.get(1), (Integer) v.get(2));
             atletas.add(a);
         }
         evento.setAtletas(atletas);
 
         DefaultTableModel dtm2 = (DefaultTableModel) jTable2.getModel();
-        dtm.setRowCount(evento.getQuantidadeLutas());
+        dtm.setRowCount(evento.getQuantidadeDeLutas());
         jTable2.setModel(dtm2);
         jTabbedPane1.setSelectedIndex(2);
+        jTabbedPane1.setEnabledAt(1, false);
     }//GEN-LAST:event_jButtonProximo2ActionPerformed
 
     private void jButtonSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortearActionPerformed
-        jTextFieldEvento.setText(evento.getNome());
+        jLabelEvento.setText(evento.getNome());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         jLabelData.setText(sdf.format(jData.getDate()));
-        Sorteio.sortear(evento);
+        jPanelSorteio.repaint();
+        List atletas = new ArrayList(evento.getAtletas());
+        List lutas = Sorteio.sortear(atletas, evento.getQuantidadeDeLutas());
+        evento.setLutas(lutas);
         DefaultTableModel dtm2 = (DefaultTableModel) jTable2.getModel();
+        dtm2.setRowCount(0);
         for (int i = 0; i < evento.getLutas().size(); i++) {
             Luta l = (Luta) evento.getLutas().get(i);
             Vector v = new Vector();
@@ -383,8 +431,23 @@ public class Aplicacao extends javax.swing.JFrame {
             dtm2.addRow(v);
         }
         jTable2.setModel(dtm2);
-        jTable2.repaint();
+        ajustaTable();
     }//GEN-LAST:event_jButtonSortearActionPerformed
+
+    private void ajustaTable() {
+        jTable2.getColumnModel().getColumn(1).setMaxWidth(30);
+        DefaultTableCellHeaderRenderer headRendererCenter = new DefaultTableCellHeaderRenderer();
+        headRendererCenter.setHorizontalAlignment(DefaultTableCellHeaderRenderer.CENTER);
+        jTable2.getTableHeader().getColumnModel().getColumn(0).setHeaderRenderer(headRendererCenter);
+        jTable2.getTableHeader().getColumnModel().getColumn(1).setHeaderRenderer(headRendererCenter);
+        jTable2.getTableHeader().getColumnModel().getColumn(2).setHeaderRenderer(headRendererCenter);
+        DefaultTableCellRenderer cellRendererCenter = new DefaultTableCellRenderer();
+        cellRendererCenter.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        jTable2.getColumnModel().getColumn(0).setCellRenderer(cellRendererCenter);
+        jTable2.getColumnModel().getColumn(1).setCellRenderer(cellRendererCenter);
+        jTable2.getColumnModel().getColumn(2).setCellRenderer(cellRendererCenter);
+        jTable2.repaint();
+    }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
