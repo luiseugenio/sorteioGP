@@ -15,14 +15,19 @@ public class Atleta {
     public static final int RANKING_MEDIO = 50;
     public static final int RANKING_MINIMO = 10;
 
-    private final String equipe;
     private final String nome;
+    private final String equipe;
     private Integer ranking;
 
-    public Atleta(String nome, String equipe, Integer peso) {
+    public Atleta(String nome, String equipe) {
         this.nome = nome;
         this.equipe = equipe;
-        this.ranking = peso;
+    }
+
+    public Atleta(String nome, String equipe, Integer ranking) {
+        this.nome = nome;
+        this.equipe = equipe;
+        this.ranking = ranking;
     }
 
     public String getEquipe() {
