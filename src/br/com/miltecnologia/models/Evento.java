@@ -5,6 +5,7 @@
  */
 package br.com.miltecnologia.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class Evento {
     }
 
     public List getAtletas() {
+        if (atletas == null) {
+            atletas = new ArrayList<>();
+        }
         return atletas;
     }
 
