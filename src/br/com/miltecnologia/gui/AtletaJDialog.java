@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AtletaJDialog extends javax.swing.JDialog {
 
-    private final List atletas;
+    private List atletas;
 
     /**
      * Creates new form RankingJDialog
@@ -47,7 +48,7 @@ public class AtletaJDialog extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -71,7 +72,12 @@ public class AtletaJDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Atletas:");
 
-        jButton1.setText("Salvar");
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,7 +92,7 @@ public class AtletaJDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(278, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonSalvar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -99,7 +105,7 @@ public class AtletaJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonSalvar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -123,8 +129,21 @@ public class AtletaJDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        Vector<Vector> data = dtm.getDataVector();
+        atletas = new ArrayList();
+        for (int i = 0; i < data.size(); i++) {
+            Vector v = data.get(i);
+            Atleta a = new Atleta((String) v.get(0), (String) v.get(1), (Integer) v.get(2));
+            atletas.add(a);
+        }
+        JOptionPane.showMessageDialog(null, "Registro Salvo com Sucesso!", "Salvar Registro", JOptionPane.INFORMATION_MESSAGE);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -135,7 +154,7 @@ public class AtletaJDialog extends javax.swing.JDialog {
     private void initTable() {
         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
         dtm.setRowCount(0);
-        ((ArrayList<Atleta>) atletas).stream().map((a) -> {
+        ((ArrayList<Atleta>) getAtletas()).stream().map((a) -> {
             Vector linha = new Vector();
             linha.add(a.getNome());
             linha.add(a.getEquipe());
@@ -153,4 +172,9 @@ public class AtletaJDialog extends javax.swing.JDialog {
         jTable1.setModel(dtm);
         jTable1.repaint();
     }
+
+    public List getAtletas() {
+        return atletas;
+    }
+
 }
